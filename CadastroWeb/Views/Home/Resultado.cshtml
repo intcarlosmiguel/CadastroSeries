@@ -1,0 +1,48 @@
+@model IQueryable<CadastroWeb.Models.Usuario>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title> Resultado Parcial</title>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>Séries</th><th>Gênero</th><th>Data</th><th>Ações</th>
+            </tr>
+            </thead>
+            @foreach (Usuario r in Model){
+                <tr data-toggle="collapse" data-target="#accordion" class="clickable" style="cursor: pointer;">
+                    <th>@(r.Nome)</th>
+                    <th>@(r.Genero)</th>
+                    <th>@(r.data)</th>
+                    <th>
+                        <a asp-action="Deletar" asp-route-id = "@r.Id" class="btn btn-danger">Deletar</a>
+                        <a asp-action="Responder" asp-route-id = "@r.Id"  class="btn btn-success">Atualizar</a>
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div id="accordion" class="collapse">
+                            <p class="card card-body"> @(r.Desc)</p>
+                        </div>
+                    </td>
+                </tr>
+            }
+            <tbody>
+            </tbody>
+        </table>
+        <a asp-action = "Responder" class="btn btn-info">Cadastre Outra Série</a>
+    </div>
+</body>
+</html>
